@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe CartsController, type: :controller do
-
   let(:cart) { create :cart }
 
-  describe "GET #show" do
-
+  describe 'GET #show' do
     before do
       get :show
     end
@@ -19,10 +17,9 @@ RSpec.describe CartsController, type: :controller do
     end
   end
 
-  describe "GET #edit" do
-
+  describe 'GET #edit' do
     before do
-      get :edit, params: { id: 1}
+      get :edit, params: { id: 1 }
     end
 
     it 'returns http success' do
@@ -34,8 +31,7 @@ RSpec.describe CartsController, type: :controller do
     end
   end
 
-  describe "GET #cupon_apply" do
-
+  describe 'GET #cupon_apply' do
     before do
       create :cupon
       get :cupon_apply, params: { id: 1, cupon: :cupon, number: 1111 }
@@ -50,10 +46,9 @@ RSpec.describe CartsController, type: :controller do
     end
   end
 
-  describe "invalid_cartst" do
-
+  describe 'invalid_cartst' do
     before do
-      get :edit, params: { id: cart.id } 
+      get :edit, params: { id: cart.id }
     end
 
     it 'invalid_carts error' do
@@ -61,10 +56,10 @@ RSpec.describe CartsController, type: :controller do
     end
 
     it 'redirect_to home' do
-      expect(response).to redirect_to("http://test.host/en")
+      expect(response).to redirect_to('http://test.host/en')
     end
 
-    it "notice: 'Invalid cart'" do    
+    it "notice: 'Invalid cart'" do
       expect(flash[:notice]).to be_present
     end
   end

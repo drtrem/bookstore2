@@ -24,7 +24,7 @@ RSpec.feature 'Checkout order address' do
     scenario 'shipping addres filled by checkbox Use Billing Address' do
       user.addresses.shipping.first.destroy
       visit checkouts_path
-      find(".checkbox-icon").click
+      find('.checkbox-icon').click
       click_button 'Save and Continue'
       expect(page).to have_content('Shipping Method')
     end
@@ -51,5 +51,4 @@ RSpec.feature 'Checkout order address' do
       expect(page).to have_content("Phone can't be blank")
     end
   end
-
 end

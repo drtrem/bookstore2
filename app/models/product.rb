@@ -1,5 +1,4 @@
 class Product < ApplicationRecord
-
   has_many :comments, dependent: :destroy
   has_many :line_items
   has_many :orders, through: :line_items
@@ -12,14 +11,15 @@ class Product < ApplicationRecord
   def self.latest
     Product.order(:updated_at).last
   end
-	
+
   private
+
   def ensure_not_referenced_by_any_line_item
     if line_items.empty?
-      return true
+      true
     else
       errors.add(:base, 'There are headings')
-      return false
+      false
     end
   end
 end

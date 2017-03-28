@@ -44,17 +44,17 @@ RSpec.feature 'Checkout order confirm' do
       expect(page).to have_content(order.payments.first.card_number.last(4))
     end
     scenario 'must present edit information links' do
-      expect(page).to have_css(".general-edit", count: 4)
+      expect(page).to have_css('.general-edit', count: 4)
     end
     scenario 'must present order items' do
-      expect(page).to have_selector(".general-title", count:2)
+      expect(page).to have_selector('.general-title', count: 2)
       order.order_items.only_products.each do |order_item|
         expect(page).to have_content(order_item.product.title)
       end
     end
     scenario 'redirect to comlete page after confirm' do
       click_button 'Save and Continue'
-      expect(page).to have_content("Thank You for your Order!")
+      expect(page).to have_content('Thank You for your Order!')
     end
     scenario 'send letter after confirm' do
       clear_emails
@@ -64,6 +64,4 @@ RSpec.feature 'Checkout order confirm' do
       expect(current_email).to have_content placed_order.order_number
     end
   end
-
-
 end

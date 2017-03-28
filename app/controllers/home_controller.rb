@@ -1,10 +1,9 @@
 class HomeController < ApplicationController
-
   def index
     @slide = Product.where(category_id: 2).take(2)
-    @product = Product.joins("INNER JOIN products ON products.id = O.product_id")
-        .from(LineItem.select("product_id, COUNT(product_id) as count")
-        .group("product_id").order("count DESC").limit(4),:O)
+    @product = Product.joins('INNER JOIN products ON products.id = O.product_id')
+                      .from(LineItem.select('product_id, COUNT(product_id) as count')
+        .group('product_id').order('count DESC').limit(4), :O)
   end
 
   def create

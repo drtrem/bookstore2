@@ -8,7 +8,7 @@ RSpec.describe Author, type: :model do
       describe 'first_name' do
         it { expect(author).to validate_presence_of(:first_name) }
         it { expect(author).to validate_length_of(:first_name).is_at_least(2).is_at_most(40) }
-        it { expect(author).to validate_uniqueness_of(:first_name).scoped_to(:last_name)   }
+        it { expect(author).to validate_uniqueness_of(:first_name).scoped_to(:last_name) }
       end
 
       describe 'last_name' do
@@ -18,7 +18,7 @@ RSpec.describe Author, type: :model do
 
       describe 'bio' do
         it { expect(author).to validate_presence_of(:bio) }
-        it { expect(author).to validate_length_of(:bio).is_at_most(1000)}
+        it { expect(author).to validate_length_of(:bio).is_at_most(1000) }
       end
     end
 

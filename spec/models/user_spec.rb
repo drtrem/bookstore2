@@ -1,14 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   describe 'validates' do
-
     it "validates the user first_name it's not emty" do
       user = User.new(first_name: '')
       user.save
       user.valid?
-      expect(user.errors[:first_name]).to eq(["can't be blank", "only allows letters"])
+      expect(user.errors[:first_name]).to eq(["can't be blank", 'only allows letters'])
     end
   end
 
@@ -32,11 +30,11 @@ RSpec.describe User, type: :model do
     end
 
     it 'create by token increases User' do
-      expect{User.create_by_token}.to change {User.count}.by(1)
+      expect { User.create_by_token }.to change { User.count }.by(1)
     end
 
     it 'set fake password changes password' do
-      expect{subject.set_fake_password}.to change { subject.password }
+      expect { subject.set_fake_password }.to change { subject.password }
     end
   end
 end

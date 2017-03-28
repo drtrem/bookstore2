@@ -1,5 +1,4 @@
 ActiveAdmin.register Category do
-
   permit_params :category
 
   index do

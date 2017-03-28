@@ -1,7 +1,7 @@
-  require 'rails_helper'
+require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  let(:order) { build :order}
+  let(:order) { build :order }
 
   describe 'associations' do
     it { expect(order).to belong_to(:user) }
@@ -27,7 +27,7 @@ RSpec.describe Order, type: :model do
 
     describe '.generate_invoice' do
       it 'generates orders number(invoice) based on timestamp' do
-        allow(Time).to receive_message_chain(:now, :to_s) { "2017-03-11 19:26:22 +0200" }
+        allow(Time).to receive_message_chain(:now, :to_s) { '2017-03-11 19:26:22 +0200' }
         invoice = Order.generate_invoice
         expect(invoice).to eq 'R#20170311192622'
       end
@@ -36,29 +36,29 @@ RSpec.describe Order, type: :model do
 
   describe 'delegates' do
     it 'responds to delegatable address methods' do
-      methods = %i{ bill_first_name bill_last_name bill_address bill_city bill_country bill_zip bill_phone
-                    ship_first_name ship_last_name ship_address ship_city ship_country ship_zip ship_phone }
+      methods = %i( bill_first_name bill_last_name bill_address bill_city bill_country bill_zip bill_phone
+                    ship_first_name ship_last_name ship_address ship_city ship_country ship_zip ship_phone )
       expect(order).to respond_to(*methods)
     end
-    
+
     it 'responds to delegatable credit card methods' do
-      methods = %i{card_number card_name card_expiration_date card_cvv}
+      methods = %i(card_number card_name card_expiration_date card_cvv)
       expect(order).to respond_to(*methods)
     end
   end
-  
+
   describe 'states' do
     describe 'responding to methods, provided by AASM' do
       context 'instance methods' do
         it do
-          instance_methods = %i{ not_confirmed? waiting_for_processing? in_progress? in_delivery? delivered? }
+          instance_methods = %i(not_confirmed? waiting_for_processing? in_progress? in_delivery? delivered?)
           expect(order).to respond_to(*instance_methods)
         end
       end
 
       context 'class methods' do
         it do
-          class_methods = %i{ not_confirmed waiting_for_processing in_progress in_delivery delivered }
+          class_methods = %i(not_confirmed waiting_for_processing in_progress in_delivery delivered)
           expect(Order).to respond_to(*class_methods)
         end
       end

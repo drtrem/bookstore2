@@ -22,14 +22,13 @@ RSpec.feature 'Checkout order delivery' do
       expect(page).to have_selector('.radio-text', count: 3)
     end
     scenario 'delivery checked' do
-      first(".radio-icon").click
+      first('.radio-icon').click
       click_button 'Save and Continue'
       expect(page).to have_content('Credit Card')
     end
     scenario 'delivery not checked' do
       click_button 'Save and Continue'
-      expect(page).to have_content("Choose delivery!")
+      expect(page).to have_content('Choose delivery!')
     end
   end
-
 end

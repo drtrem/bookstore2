@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 feature 'Book', type: :feature, js: true do
   let!(:mobile) { create :category, category: 'Mobile Development' }
   let!(:mobile_book) { create(:product) }
@@ -33,4 +32,4 @@ feature 'Book', type: :feature, js: true do
       expect(page).to have_content(mobile_book.description)
     end
   end
-end 
+end

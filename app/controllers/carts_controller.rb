@@ -1,5 +1,4 @@
 class CartsController < InheritedResources::Base
-  
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   def show
@@ -29,4 +28,3 @@ class CartsController < InheritedResources::Base
     redirect_to store_url, notice: 'Invalid cart'
   end
 end
-

@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :category do
-    category "Web"
+    category 'Web'
   end
 end

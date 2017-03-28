@@ -1,20 +1,20 @@
 class OrdersController < InheritedResources::Base
   include CurrentCart
 
-  before_action :set_cart, only: [:index, :create]
+  before_action :set_cart, only: %i(index create)
   before_action :authenticate_user!
 
   def index
     @user = User.find(current_user.id)
     if @cart.line_items.empty?
-      redirect_to store_url, notice: "Your cart is empty"
+      redirect_to store_url, notice: 'Your cart is empty'
       return
     end
   end
 
   def create
     @user = User.find_by_id(current_user.id)
-    if session[:return_to] == nil
+    if session[:return_to].nil?
       if @user.update_attributes(user_params)
         render 'delivery/index'
       else
@@ -38,7 +38,7 @@ class OrdersController < InheritedResources::Base
   private
 
   def user_params
-      params.require(:user).permit(:first_name, :last_name, :address, :city, :zip, :country, :phone)
+    params.require(:user).permit(:first_name, :last_name, :address, :city, :zip, :country, :phone)
   end
 
   def copy_params

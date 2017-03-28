@@ -1,16 +1,14 @@
 class DeliveryController < ApplicationController
-
   before_action :authenticate_user!
 
-  def index
-  end
+  def index; end
 
   def create
-    if params[:user] == nil
-      render 'delivery/index' 
+    if params[:user].nil?
+      render 'delivery/index'
       return
     end
-    if session[:return_to] == nil
+    if session[:return_to].nil?
       session[:delivery_id] = params[:user][:id]
       redirect_to payment_index_path
     else

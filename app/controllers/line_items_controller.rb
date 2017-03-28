@@ -1,7 +1,7 @@
 class LineItemsController < InheritedResources::Base
   include CurrentCart
 
-  before_action :set_cart, only: [:index, :create, :update, :destroy]
+  before_action :set_cart, only: %i(index create update destroy)
 
   def index
     product = Product.find(params[:product_id])

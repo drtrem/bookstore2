@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe LineItemsController, type: :controller do
-
   let(:cart) { build :cart }
   let(:book) { build :product }
   let(:line_item) { create :line_item, book: book, cart: cart }
@@ -9,8 +8,8 @@ RSpec.describe LineItemsController, type: :controller do
   describe 'POST #create' do
     let(:line_items_params) { attributes_for(:line_item).stringify_keys }
     before do
-      @request.env['HTTP_REFERER'] = "#{book_url(line_item.product_id)}" 
-      allow_any_instance_of(LineItem).to receive(:save) { true } 
+      @request.env['HTTP_REFERER'] = book_url(line_item.product_id).to_s
+      allow_any_instance_of(LineItem).to receive(:save) { true }
     end
 
     context 'with valid attributes' do
@@ -33,7 +32,7 @@ RSpec.describe LineItemsController, type: :controller do
     context 'with invalid attributes' do
       before do
         allow_any_instance_of(LineItem).to receive(:save) { false }
-        @request.env['HTTP_REFERER'] = "#{book_url(line_item.product_id)}"
+        @request.env['HTTP_REFERER'] = book_url(line_item.product_id).to_s
       end
 
       it 'redirects to book path if item was not saved' do
@@ -87,7 +86,7 @@ RSpec.describe LineItemsController, type: :controller do
 
     context 'cart still has few items' do
       before do
-        allow_any_instance_of(Cart).to receive(:has_items?){ true }
+        allow_any_instance_of(Cart).to receive(:has_items?) { true }
         delete :destroy, params: { id: line_item.id }
       end
 

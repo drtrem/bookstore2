@@ -4,7 +4,6 @@ RSpec.describe BooksController, type: :controller do
   let(:book) { create(:product) }
 
   describe 'show' do
-
     before do
       get :show, params: { id: book.id }
     end
@@ -18,8 +17,7 @@ RSpec.describe BooksController, type: :controller do
     end
 
     it 'right assigns' do
-      expect(assigns(:product)).to eq(book) 
-     end
+      expect(assigns(:product)).to eq(book)
+    end
   end
 end
- 

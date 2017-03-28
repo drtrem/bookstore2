@@ -69,5 +69,4 @@ RSpec.feature 'Menu panel' do
       expect(page).to have_selector('.shop-quantity', text: order.order_items.count.to_s)
     end
   end
-
 end

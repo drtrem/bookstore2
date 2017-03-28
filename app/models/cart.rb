@@ -27,11 +27,11 @@ class Cart < ApplicationRecord
   end
 
   def total_price
-    line_items.to_a.sum { |item| item.total_price }
+    line_items.to_a.sum(&:total_price)
   end
 
   def total_cupon
-    @cupon = Cupon.find(self.cupon_id)
+    @cupon = Cupon.find(cupon_id)
     @cupon.price
   end
 end

@@ -5,13 +5,12 @@ RSpec.describe CompleteController, type: :controller do
   let(:order) { create :order }
   login_user
 
-  describe "GET #index" do
-
+  describe 'GET #index' do
     before do
       get :index, params: { order_id: 1, cart_id: 1, return_to: 1 }
     end
 
-    it "returns http success" do
+    it 'returns http success' do
       expect(response).to render_template(:index)
     end
 
@@ -20,4 +19,3 @@ RSpec.describe CompleteController, type: :controller do
     end
   end
 end
-  

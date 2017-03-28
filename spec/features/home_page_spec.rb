@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Show books', type: :feature, js: true do
   let(:category) { create(:category) }
   let(:product) { create(:product) }
-  let(:slide){ create(:product) }
+  let(:slide) { create(:product) }
 
   background do
     visit store_path
@@ -11,7 +11,7 @@ RSpec.feature 'Show books', type: :feature, js: true do
 
   context 'main elements' do
     scenario 'main elements' do
-      allow_any_instance_of(Product).to receive(:image_url).and_return("Wibble")
+      allow_any_instance_of(Product).to receive(:image_url).and_return('Wibble')
       expect(page).to have_content(I18n.t('general.project_name'))
       expect(page).to have_content(I18n.t('general.welcome'))
       expect(page).to have_content(I18n.t('layout.links.home'))
@@ -27,7 +27,7 @@ RSpec.feature 'Show books', type: :feature, js: true do
     end
 
     scenario 'users' do
-      sign_in(create :user)
+      sign_in(create(:user))
       expect(page).to have_content(I18n.t('layout.links.profile'))
     end
   end

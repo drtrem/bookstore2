@@ -15,6 +15,6 @@ class CompleteController < ApplicationController
     session[:cart_id] = nil
     session[:order_id] = nil
     session[:return_to] = nil
-    render 'complete/index'  
+    render 'complete/index'
   end
 end

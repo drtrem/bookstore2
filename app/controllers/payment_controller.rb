@@ -2,10 +2,10 @@ class PaymentController < ApplicationController
   include CurrentCart
 
   before_action :authenticate_user!
-  before_action :set_cart, only: [:index, :create]
+  before_action :set_cart, only: %i(index create)
 
   def index
-    if session[:return_to] == nil
+    if session[:return_to].nil?
       @order = Order.new
       @order.delivery_id = session[:delivery_id]
       render 'payment/index'
@@ -26,10 +26,10 @@ class PaymentController < ApplicationController
     if @order.save
       session[:order_id] = @order.id
       session[:return_to] = true
-      render 'confirm/index'		
+      render 'confirm/index'
     else
       render 'payment/index'
-    end		
+    end
   end
 
   private

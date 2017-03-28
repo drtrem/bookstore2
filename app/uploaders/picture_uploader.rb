@@ -1,5 +1,5 @@
 class PictureUploader < CarrierWave::Uploader::Base
-include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
   process resize_to_limit: [555, 555]
 
   if Rails.env.production?
@@ -13,11 +13,11 @@ include CarrierWave::MiniMagick
   end
 
   def default_url
-    "/assets/" + [version_name, "default.png"].compact.join('_')
+    '/assets/' + [version_name, 'default.png'].compact.join('_')
   end
 
   version :thumb do
-    process resize_to_fill: [300,400]
+    process resize_to_fill: [300, 400]
   end
 
   def extension_whitelist

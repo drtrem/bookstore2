@@ -21,7 +21,7 @@ RSpec.feature '/products' do
       categories.each do |category|
         create_list :product, 5, category: category
       end
-      page.evaluate_script("window.location.reload()")
+      page.evaluate_script('window.location.reload()')
       expect(page).to have_selector('.general-title', count: 12)
       expect(find('.btn-primary', text: 'Next Page')).to be_present
     end
@@ -34,11 +34,11 @@ RSpec.feature '/products' do
 
   context 'working buttons' do
     scenario 'add product to cart' do
-      first(".fa-shopping-cart", visible: :all).click
+      first('.fa-shopping-cart', visible: :all).click
       expect(page).to have_content('Product has been added!')
     end
     scenario 'show product' do
-      first(".fa-eye", visible: :all).click
+      first('.fa-eye', visible: :all).click
       expect(page).to have_current_path(/products\/[0-9]+/)
     end
   end

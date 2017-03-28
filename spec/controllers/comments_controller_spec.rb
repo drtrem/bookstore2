@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
-  let(:book) { build :product } 
+  let(:book) { build :product }
   let(:user) { build :user }
-  let(:review) { create :comment }  
+  let(:review) { create :comment }
 
-  describe "POST #create" do
+  describe 'POST #create' do
     let(:review_params) { attributes_for(:comment).stringify_keys }
 
     before do
-      @request.env['HTTP_REFERER'] = "#{book_url(review)}"
+      @request.env['HTTP_REFERER'] = book_url(review).to_s
       allow_any_instance_of(Comment).to receive(:save) { true }
     end
 

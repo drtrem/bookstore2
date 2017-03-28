@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Checkout order complete' do
   let(:user) { create :user_with_addresses }
-  let(:order) { create :full_order, state: 'complete', order_number: 'R0000TEST', placed_date: Date.today}
+  let(:order) { create :full_order, state: 'complete', order_number: 'R0000TEST', placed_date: Date.today }
 
   before do
     login_as(user, scope: :user)
@@ -33,7 +33,7 @@ RSpec.feature 'Checkout order complete' do
       expect(page).to have_content order.order_number
     end
     scenario 'must present order items' do
-      expect(page).to have_selector(".general-title", count:2)
+      expect(page).to have_selector('.general-title', count: 2)
       order.order_items.only_products.each do |order_item|
         expect(page).to have_content(order_item.product.title)
       end
@@ -51,9 +51,7 @@ RSpec.feature 'Checkout order complete' do
     end
     scenario 'redirect to root path after confirm' do
       click_button 'Back to Store'
-      expect(page).to have_current_path("/")
+      expect(page).to have_current_path('/')
     end
   end
-
-
 end

@@ -84,7 +84,7 @@ RSpec.describe Cart, type: :model do
       end
     end
 
-    describe "#calculate_discount" do
+    describe '#calculate_discount' do
       it 'returns discount amount for current cart' do
         allow(cart).to receive(:order_items_subtotal).and_return 114.00
         allow(cart).to receive(:discount_percent).and_return 15.0
