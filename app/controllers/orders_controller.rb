@@ -31,14 +31,22 @@ class OrdersController < InheritedResources::Base
         render 'orders/index'
       end
     end
-    copy_params
+    copy_params if @user.check == true
     @user.save
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :address, :city, :zip, :country, :phone)
+    if params[:check] == 'true'
+      @user.check = true
+      @user.save(validate: false)
+      params.require(:user).permit(:first_name, :last_name, :address, :city, :zip, :country, :phone)
+    else
+      @user.check = false
+      @user.save(validate: false)
+      params.require(:user).permit(:first_name, :last_name, :address, :city, :zip, :country, :phone, :shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city, :shipping_zip, :shipping_country, :shipping_phone)
+    end
   end
 
   def copy_params
