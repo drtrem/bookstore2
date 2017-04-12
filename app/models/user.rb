@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  after_create :send_admin_mail
+  # after_create :send_admin_mail
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :omniauthable
@@ -10,13 +10,13 @@ class User < ApplicationRecord
 
   validates :first_name, :last_name, :address, :city, :zip, :country, :phone, presence: true, on: :update
   validates :first_name, :last_name, :address, :city, :zip, :country, :phone, length: { maximum: 50 }, on: :update
-  validates :first_name, :last_name, :city, format: { with: /\A[a-zA-Z]+\z/, message: 'only allows letters' }, on: :update
+  validates :first_name, :last_name, :city, :country, format: { with: /\A[а-яА-ЯёЁa-zA-Z]+\z/, message: 'only allows letters' }, on: :update
   validates :zip, length: { maximum: 10 }, format: { with: /\A[0-9]+\z/, message: 'only allows numbers' }, on: :update
   validates :phone, length: { maximum: 15 }, format: { with: /\A^\+[0-9]+\z/, message: 'should starts with +' }, on: :update
 
   validates :shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city, :shipping_zip, :shipping_country, :shipping_phone, presence: true, on: :update
   validates :shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city, :shipping_zip, :shipping_country, :shipping_phone, length: { maximum: 50 }, on: :update
-  validates :shipping_first_name, :shipping_last_name, :shipping_city, format: { with: /\A[a-zA-Z]+\z/, message: 'only allows letters' }, on: :update
+  validates :shipping_first_name, :shipping_last_name, :shipping_city, :shipping_country, format: { with: /\A[а-яА-ЯёЁa-zA-Z]+\z/, message: 'only allows letters' }, on: :update
   validates :shipping_zip, length: { maximum: 10 }, format: { with: /\A[0-9]+\z/, message: 'only allows numbers' }, on: :update
   validates :shipping_phone, length: { maximum: 15 }, format: { with: /\A^\+[0-9]+\z/, message: 'should starts with +' }, on: :update
 
