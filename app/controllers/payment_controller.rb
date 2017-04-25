@@ -23,12 +23,18 @@ class PaymentController < ApplicationController
     @order.delivery_id = session[:delivery_id]
     @delivery = Delivery.find(@order.delivery_id)
     @order.subtotal = @order.total_price + @order.total_delivery - @order.total_cupon
-    if @order.save
-      session[:order_id] = @order.id
-      session[:return_to] = true
-      render 'confirm/index'
+    if session[:order_id].nil?
+      if @order.save
+        session[:order_id] = @order.id
+        session[:return_to] = true
+        render 'confirm/index'
+      else
+        render 'payment/index'
+      end
     else
-      render 'payment/index'
+      @order = Order.find_by_id(session[:order_id])
+      @order.update_attributes(order_params)
+      render 'confirm/index'
     end
   end
 

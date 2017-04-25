@@ -2,18 +2,18 @@
   %h3.in-gold-500.mb-25= "Reviews (#{@reviews.count})"
   %ul.media-list
     - @reviews.each do |review|
-      -review.rate ||= 0
+      - review_rate(review)
       %li.media.card
         .media-left
-          %img.img-circle.logo-size.media-object{src: "#{User.find_by_id(review.user_id).pictures}"}
+          %img.img-circle.logo-size.media-object{src: "#{avatar(review.user_id)}"}
         .media-body
           %div
-            %p.general-message-date.hidden-xs= review.updated_at.strftime("%B %d, %Y")
+            %p.general-message-date.hidden-xs= review_date(review)
             %h4.media-heading.max-240.general-message-name
             .in-gold-500.media-left
               = review.commenter
           .mb-15
             - 5.times.collect do |i|
-              %i.fa.fa-star.rate-star{:class => ('rate-empty' if i >= review.rate)}
+              %i.fa.fa-star.rate-star{:class => ('rate-empty' if i >= review_rate(review))}
           %p= review.body
           

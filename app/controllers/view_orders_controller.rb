@@ -2,16 +2,11 @@ class ViewOrdersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @order = Order.order(sort_column + ' ' + sort_direction).where(user_id: current_user.id)
-  end
-
-  private
-
-  def sort_column
-    Order.column_names.include?(params[:sort_order]) ? params[:sort_order] : 'created_at'
-  end
-
-  def sort_direction
-    %w(asc desc).include?(params[:direction_order]) ?  params[:direction_order] : 'desc'
+    if params[:sort_order] && params[:sort_order] != 'All'
+      @order = ViewOrdersDecorator.decorate_collection(Order.order(id: :desc).where(user_id: current_user.id).where(state: params[:sort_order]))
+    else
+      @order = ViewOrdersDecorator.decorate_collection(Order.order(id: :desc).all.where(user_id: current_user.id))
+    end
   end
 end
+ 

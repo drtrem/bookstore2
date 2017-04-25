@@ -11,10 +11,10 @@ class ProductsController < ApplicationController
   def category
     view_param_sort
     if params[:id] == 'all'
-      @product = Product.order(sort_column + ' ' + sort_direction).where(category_id: session[:category]).page(params[:page]).per(8)
       @catego = []
       Category.all.each { |c| @catego << c.id }
       session[:category] = @catego
+      @product = Product.order(sort_column + ' ' + sort_direction).where(category_id: session[:category]).page(params[:page]).per(8)
     else
       session[:category] = params[:id]
       @product = Product.where(category_id: params[:id]).page(params[:page]).per(8)

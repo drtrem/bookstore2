@@ -87,7 +87,7 @@
           = f.text_field :shipping_phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
           %span.help-block= adress_error_message(:shipping_phone) if @user.errors.any?
           = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20 hidden', id: '1'}
-      .form-group.checkbox{class: 'col-md-5 col-md-offset-1'}
+      .form-group.checkbox{class: 'col-md-5 col-md-offset-6'}
         %label.font-weight-light.pl-0
           = f.check_box(:check, {class: 'checkbox-input', type: "checkbox", hidden: "true", name: 'check', onchange: "document.getElementById('form2').style.display = this.checked ? 'none' : 'block'"}, true)
           %span.checkbox-icon

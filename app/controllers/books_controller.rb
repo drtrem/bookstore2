@@ -1,21 +1,25 @@
 class BooksController < ApplicationController
   include CurrentCart
 
-  before_action :set_cart, only: [:show]
+  before_action :set_cart, only: %i(show update)
+  helper_method :quantity
 
   def show
     @product = Product.find_by_id(params[:id])
-    unless current_user.nil?
-      @user = User.find_by_id(current_user.id)
-      @line_items = LineItem.where('product_id = :product_id AND cart_id = :cart_id', product_id: params[:id], cart_id: @cart.id).first
-      @quantity = if @line_items.nil?
-                    1
-                  else
-                    @line_items.quantity
-                  end
-    end
+    @user = User.find_by_id(current_user.id) if current_user
     @product.views += 1
     @product.save
     @reviews = Comment.where(product_id: @product.id, state: 'true')
+  end
+
+  def update
+    if params[:quantity].to_i <= 0
+      redirect_to book_path
+      return
+    end
+    product = Product.find_by_id(params[:id])
+    @line_item = @cart.add_product(product.id, params[:quantity])
+    @line_item.save
+    redirect_to @line_item.cart
   end
 end

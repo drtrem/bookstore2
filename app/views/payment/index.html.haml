@@ -25,7 +25,7 @@
 = form_for @order, :url => payment_index_path, :method => :post, :html => { :class => 'max-600 mb-80'} do |f|
   .form-group{class: "#{"has-error" if card_has_error?(:card_number)}"}
     = f.label :card_number, 'Card Number', { class: 'control-label font-weight-lights', for: "cardNumber" }
-    = f.text_field :card_number, { class: 'form-control', id: 'cardNumber', type: "number", name: "card_number", placeholder: "Card Number" }
+    = f.text_field :card_number, { class: 'form-control', id: 'cardNumber', type: "text", name: "card_number", placeholder: "Card Number" }
     %span.help-block= card_error_message(:card_number) if @order.errors.any?
   .row
     .col-sm-6
@@ -40,9 +40,11 @@
         %span.help-block= card_error_message(:mm_yy) if @order.errors.any?
     .col-sm-3
       .form-group.relative{class: "#{"has-error" if card_has_error?(:cvv)}"}
-        = f.label :cvv, 'Name on Card', { class: 'control-label font-weight-lights', for: "firstName" }
-        = f.text_field :cvv, { class: 'form-control', id: 'firstName', name: "cvv", type: "number", placeholder: "CVV" }
+        = f.label :cvv, 'CVV', { class: 'control-label font-weight-lights', for: "cvv" }
+        = f.text_field :cvv, { class: 'form-control', id: 'cvv', name: "cvv", type: "text", placeholder: "CVV" }
         %i.fa.fa-question-circle.general-form-help.font-18
+        <a href="#" title="The CVV number (Card Verification Value) on a credit card is a 3-4 digit number on VISA, MasterCard" class="fa fa-question-circle general-form-help font-18" style="text-decoration: none;"></a>
+        %span.tooltip
         %span.help-block= card_error_message(:cvv) if @order.errors.any?
   .general-text-align
   %p.in-gold-500.font-18 Order Summary
@@ -63,4 +65,4 @@
       %td
         %strong.font-18= number_to_currency(@cart.total_price + @order.total_delivery - @cart.total_cupon)
   .text-center
-  = f.submit 'Save and Continue', {class: 'btn btn-default mb-80'}
+    = f.submit 'Save and Continue', {class: 'btn btn-default mb-80'}

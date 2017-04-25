@@ -8,6 +8,7 @@
     %script{src: "https://use.fontawesome.com/67602d7308.js"}
     %script{src: "../../javascripts/jquery.js"}
     %script{src: "../../javascripts/bootstrap.js"}
+    %script{src: "../../javascripts/app.js"}
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
@@ -87,7 +88,7 @@
                 %a.nav-link{href: "#{product_path}"}= t('.shop')
               - if user_signed_in?
                 <li><a class="nav-link" href="/en/view_orders">Orders</a></li>
-                <li><a class="nav-link" href="/settings/index?">Settings</a></li>
+                <li><a class="nav-link" href="/settings/index?">Settings</a></li></li>
           .col-sm-3
             %p.general-nav-mail= t('.email')
             %p.general-nav-number= t('.telephone')

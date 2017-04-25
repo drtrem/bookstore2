@@ -23,12 +23,12 @@
           %td.col-half
             %span.in-grey-600 Number
           %td.col-half
-            %span.general-order-number= "R#{order.id}"
+            %span.general-order-number= order.number
         %tr
           %td
             %span.in-grey-600 Completed at
           %td
-            %span.in-grey-900.font-16.font-weight-light= order.updated_at.strftime("%Y-%m-%d")
+            %span.in-grey-900.font-16.font-weight-light= order.date
         %tr
           %td
             %span.in-grey-600 Status
@@ -56,10 +56,11 @@
       - @order.each do |order|
         %tr
           %td
-            %span.general-order-number= "R#{order.id}"
+            %span.general-order-number= order.number
           %td
-            %span.in-grey-900.font-16.font-weight-light= order.updated_at.strftime("%Y-%m-%d")
+            %span.in-grey-900.font-16.font-weight-light= order.date
           %td
             %span.font-16.font-weight-light.text-success= order.state
           %td
             %strong.font-16= number_to_currency(order.subtotal) 
+ 

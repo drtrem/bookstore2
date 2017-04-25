@@ -31,7 +31,6 @@ class LineItemsController < InheritedResources::Base
   def update
     product = Product.find(params[:product_id])
     @line_item = @cart.del_product(product.id)
-
     respond_to do |format|
       if @line_item.save
         format.html { redirect_to @line_item.cart }

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   get 'settings/index'
 
   get 'settings/update'
@@ -24,7 +25,7 @@ Rails.application.routes.draw do
       end
     end
     resources :home, only: %i(index create)
-    resources :books, only: [:show]
+    resources :books, only: %i(show update)
     resources :orders, only: %i(index create)
     resources :line_items, only: %i(index new create update destroy)
     resources :carts, only: %i(show edit)
