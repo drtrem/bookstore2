@@ -1,113 +1,115 @@
-%h1.general-title-margin Checkout
-%ul.steps.list-inline
-  %li.step.active
-    %span.step-number
-      %i.fa.fa-check.step-icon
-    %span.step-text.hidden-xs Address
-  %li.step-divider
-  %li.step.active
-    %span.step-number
-      %i.fa.fa-check.step-icon
-    %span.step-text.hidden-xs Delivery
-  %li.step-divider
-  %li.step.active
-    %span.step-number
-      %i.fa.fa-check.step-icon
-    %span.step-text.hidden-xs Payment
-  %li.step-divider
-  %li.step.active
-    %span.step-number 4
-    %span.step-text.hidden-xs Confirm
-  %li.step-divider
-  %li.step
-    %span.step-number 5
-    %span.step-text.hidden-xs Complete
-.row.mb-20
-  .col-sm-3
-    %h3.general-subtitle Shipping Address
-    %p.general-address
-      = "#{current_user.shipping_first_name} #{current_user.shipping_last_name}"
-      %span.general-edit= link_to "edit", orders_path, method: :get, class: 'general-edit' 
-      %br
-      = current_user.shipping_address
-      %br
-      = "#{current_user.shipping_city} #{current_user.shipping_zip}"
-      %br
-      = current_user.shipping_country
-      %br
-      = "Phone #{current_user.shipping_phone}"
-  .col-sm-3
-    %h3.general-subtitle Billing Address
-    %p.general-address
-      = "#{current_user.first_name} #{current_user.last_name}"
-      %span.general-edit= link_to "edit", orders_path, method: :get, class: 'general-edit' 
-      %br
-      = current_user.address
-      %br
-      = "#{current_user.city} #{current_user.zip}"
-      %br
-      = current_user.country
-      %br
-      = "Phone #{current_user.phone}"
-  .col-sm-3
-    %h3.general-subtitle Shipments
-    %p.general-address
-      = "Delivery #{@delivery.days} Days"
-      %span.general-edit= link_to "edit", delivery_index_path, method: :get, class: 'general-edit' 
-      %br
-      = @delivery.method
-  .col-sm-3
-    %h3.general-subtitle Payment Information
-    %p.general-address
-      = @order.card_number
-      %span.general-edit= link_to "edit", payment_index_path, method: :get, class: 'general-edit' 
-      %br
-      = @order.mm_yy
-.hidden-xs.divider-lg.pt-20
-  %table.table.table-hover
-    %thead
-      %tr
-        %th
-          %span.in-grey-600 Book
-        %th.col-method
-        %th
-          %span.in-grey-600 Price
-        %th
-          %span.in-grey-600 Quantity
-        %th
-          %span.in-grey-600 Total
-    - @cart.line_items.each do |item|
-      %tbody
+- present @order do |order|
+  %h1.general-title-margin Checkout
+  %ul.steps.list-inline
+    %li.step.active
+      %span.step-number
+        %i.fa.fa-check.step-icon
+      %span.step-text.hidden-xs Address
+    %li.step-divider
+    %li.step.active
+      %span.step-number
+        %i.fa.fa-check.step-icon
+      %span.step-text.hidden-xs Delivery
+    %li.step-divider
+    %li.step.active
+      %span.step-number
+        %i.fa.fa-check.step-icon
+      %span.step-text.hidden-xs Payment
+    %li.step-divider
+    %li.step.active
+      %span.step-number 4
+      %span.step-text.hidden-xs Confirm
+    %li.step-divider
+    %li.step
+      %span.step-number 5
+      %span.step-text.hidden-xs Complete
+  .row.mb-20
+    .col-sm-3
+      %h3.general-subtitle Shipping Address
+      %p.general-address
+        = order.present('name', current_user)
+        %span.general-edit= link_to "edit", orders_path, method: :get, class: 'general-edit' 
+        %br
+        = current_user.shipping_address
+        %br
+        = order.present('city', current_user)
+        %br
+        = current_user.shipping_country
+        %br
+        = order.present('phone', current_user)
+    .col-sm-3
+      %h3.general-subtitle Billing Address
+      %p.general-address
+        = "#{current_user.first_name} #{current_user.last_name}"
+        %span.general-edit= link_to "edit", orders_path, method: :get, class: 'general-edit' 
+        %br
+        = current_user.address
+        %br
+        = "#{current_user.city} #{current_user.zip}"
+        %br
+        = current_user.country
+        %br
+        = "Phone #{current_user.phone}"
+    .col-sm-3
+      %h3.general-subtitle Shipments
+      %p.general-address
+        = "Delivery #{@delivery.days} Days"
+        %span.general-edit= link_to "edit", delivery_index_path, method: :get, class: 'general-edit' 
+        %br
+        = @delivery.method
+    .col-sm-3
+      %h3.general-subtitle Payment Information
+      %p.general-address
+        = @order.card_number
+        %span.general-edit= link_to "edit", payment_index_path, method: :get, class: 'general-edit' 
+        %br
+        = @order.mm_yy
+  .hidden-xs.divider-lg.pt-20
+    %table.table.table-hover
+      %thead
         %tr
-          %td
-            .general-img-wrap-table
-              %img.cart-img-shadow.pull-left.width-full{src: item.product.image_url}
-          %td
-            %p.general-title= item.product.title
-            %p.in-grey-600.font-weight-light= item.product.title
-          %td
-            %span.font-16.in-gold-500= "€#{item.product.price}"
-          %td
-            %span.ml-30= item.quantity
-          %td
-            %span.font-16.in-gold-500= number_to_currency(item.total_price)
-.text-center.general-text-right
-  %p.in-gold-500.font-18 Order Summary
-  %table.general-summary-table.general-summary-table-right.general-text-right
-    %tr
-      %td
-        %p.font-16 Subtotal:
-      %td
-        %p.font-16= number_to_currency(@cart.total_price + @order.total_delivery)
-    %tr
-      %td
-        %p.font-16 Coupon:
-      %td
-        %p.font-16= number_to_currency(@order.total_cupon)
-    %tr
-      %td
-        %strong.font-18 Order Total:
-      %td
-        %strong.font-18= number_to_currency(@cart.total_price + @order.total_delivery - @order.total_cupon)
-.text-center
-  = button_to "Place Order", complete_index_path, method: :get, class: 'btn btn-default mb-20'
+          %th
+            %span.in-grey-600 Book
+          %th.col-method
+          %th
+            %span.in-grey-600 Price
+          %th
+            %span.in-grey-600 Quantity
+          %th
+            %span.in-grey-600 Total
+      - @cart.line_items.each do |item|
+        %tbody
+          %tr
+            %td
+              .general-img-wrap-table
+                %img.cart-img-shadow.pull-left.width-full{src: item.product.image_url}
+            %td
+              %p.general-title= item.product.title
+              %p.in-grey-600.font-weight-light= item.product.title
+            %td
+              %span.font-16.in-gold-500= "€#{item.product.price}"
+            %td
+              %span.ml-30= item.quantity
+            %td
+              %span.font-16.in-gold-500= number_to_currency(item.total_price)
+  .text-center.general-text-right
+    %p.in-gold-500.font-18 Order Summary
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      %tr
+        %td
+          %p.font-16 Subtotal:
+        %td
+          %p.font-16= number_to_currency(@cart.total_price + @order.total_delivery)
+      %tr
+        %td
+          %p.font-16 Coupon:
+        %td
+          %p.font-16= number_to_currency(@order.total_cupon)
+      %tr
+        %td
+          %strong.font-18 Order Total:
+        %td
+          %strong.font-18= number_to_currency(@cart.total_price + @order.total_delivery - @order.total_cupon)
+  .text-center
+    = button_to "Place Order", complete_index_path, method: :get, class: 'btn btn-default mb-20'
+ 

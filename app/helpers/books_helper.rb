@@ -1,13 +1,8 @@
 module BooksHelper
-  def avatar(user_id)
-    User.find_by_id(user_id).pictures
+  def set_views(product)
+    product.views += 1
+    product.save
+    @reviews = Comment.where(product_id: product.id, state: 'true')
   end
-
-  def review_rate(review)
-    review.rate ||= 0
-  end
-
-  def review_date(review)
-    review.updated_at.strftime("%B %d, %Y")
-  end
-end
+end 
+ 

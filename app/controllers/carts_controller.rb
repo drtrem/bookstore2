@@ -1,24 +1,19 @@
 class CartsController < InheritedResources::Base
+  include CartsHelper
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   def show
-    @cupon ||= Cupon.new(price: 0, id: 1)
-    @cart.cupon_id = 1
-    @cart.save
+    set_cupon
   end
 
   def edit
     @cupon = Cupon.find(params[:id])
-    render action: 'show'
+    render 'show'
   end
 
   def cupon_apply
-    @number = params[:cupon]
-    @cupon = Cupon.where(number: @number[:number]).first
-    @cupon ||= Cupon.new(price: 0, id: 1)
-    @cart.cupon_id = @cupon.id
-    @cart.save
-    render action: 'show'
+    set_cupon(params[:cupon][:number])
+    render 'show'
   end
 
   private
@@ -28,3 +23,4 @@ class CartsController < InheritedResources::Base
     redirect_to store_url, notice: 'Invalid cart'
   end
 end
+  

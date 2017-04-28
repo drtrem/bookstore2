@@ -41,6 +41,7 @@ gem 'thor', '= 0.19.1'
 gem 'activemodel-serializers-xml', github: 'rails/activemodel-serializers-xml'
 gem 'draper', '3.0.0.pre1'
 gem 'virtus'
+gem "rectify"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

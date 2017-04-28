@@ -1,3 +1,4 @@
+require_dependency "app/services/payment_service.rb"
 class PaymentController < ApplicationController
   include CurrentCart
 
@@ -18,11 +19,9 @@ class PaymentController < ApplicationController
 
   def create
     @order = current_user.orders.build(order_params)
-    @order.add_line_items_from_cart(@cart)
-    @order.cupon_id = @cart.cupon_id
     @order.delivery_id = session[:delivery_id]
     @delivery = Delivery.find(@order.delivery_id)
-    @order.subtotal = @order.total_price + @order.total_delivery - @order.total_cupon
+    PaymentService.new(@order, @cart).create_order
     if session[:order_id].nil?
       if @order.save
         session[:order_id] = @order.id

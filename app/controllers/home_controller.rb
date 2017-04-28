@@ -1,9 +1,8 @@
+require_dependency "app/queries/home_products.rb"
 class HomeController < ApplicationController
   def index
-    @slide = Product.where(category_id: 2).take(2)
-    @product = Product.joins('INNER JOIN products ON products.id = O.product_id')
-                      .from(LineItem.select('product_id, COUNT(product_id) as count')
-        .group('product_id').order('count DESC').limit(4), :O)
+    @slide = HomeDecorator.decorate_collection(Product.where(category_id: 2).take(2))
+    @product = HomeDecorator.decorate_collection(HomeProducts.new.call_best_sellers)
   end
 
   def create
@@ -13,3 +12,4 @@ class HomeController < ApplicationController
     redirect_to home_index_path
   end
 end
+ 

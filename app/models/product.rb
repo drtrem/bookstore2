@@ -2,9 +2,10 @@ class Product < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :line_items
   has_many :orders, through: :line_items
-  before_destroy :ensure_not_referenced_by_any_line_item
   belongs_to :author
   belongs_to :category
+  
+  before_destroy :ensure_not_referenced_by_any_line_item
 
   mount_uploader :image_url, PictureUploader
 
