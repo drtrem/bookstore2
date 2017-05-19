@@ -1,0 +1,14 @@
+ru:
+  layouts:
+    application:
+      title: 'Bookstore'
+      home: 'Домой'
+      shop: 'Магазин'
+      orders: 'Заказы'
+      settings: 'Настройки'
+      my_account: 'Мой аккаунт'
+      mobile_development: 'Мобильная разработка'
+      photo: 'Фотография'
+      web_design: 'Веб-дизайн'
+      email: support@bookstore.com
+      telephone: (555)-555-5555
