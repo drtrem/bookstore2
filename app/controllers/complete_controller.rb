@@ -2,7 +2,8 @@ class CompleteController < ApplicationController
   include CurrentCart
   include CompleteHelper
 
-  before_action :authenticate_user!
+  before_filter :authenticate_user!
+  skip_load_and_authorize_resource
 
   def index
     set_cart

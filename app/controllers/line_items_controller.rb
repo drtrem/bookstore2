@@ -1,12 +1,12 @@
 class LineItemsController < InheritedResources::Base
   include CurrentCart
+  include CurrentLineItem
 
   before_action :set_cart, only: %i(index create update destroy)
+  before_action :find_product, only: %i(create update destroy)
 
   def index
-    product = Product.find(params[:product_id])
-    @line_item = @cart.add_product(product.id)
-    @line_item.save
+    set_line_item(params[:product_id])
     redirect_to product_path
   end
 
@@ -15,9 +15,7 @@ class LineItemsController < InheritedResources::Base
   end
 
   def create
-    product = Product.find(params[:product_id])
-    @line_item = @cart.add_product(product.id)
-
+    @line_item = @cart.add_product(@product.id)
     respond_to do |format|
       if @line_item.save
         format.html { redirect_to @line_item.cart }
@@ -29,8 +27,7 @@ class LineItemsController < InheritedResources::Base
   end
 
   def update
-    product = Product.find(params[:product_id])
-    @line_item = @cart.del_product(product.id)
+    @line_item = @cart.del_product(@product.id)
     respond_to do |format|
       if @line_item.save
         format.html { redirect_to @line_item.cart }
@@ -43,9 +40,7 @@ class LineItemsController < InheritedResources::Base
   end
 
   def destroy
-    product = Product.find(params[:product_id])
-    @line_item = @cart.destroy_product(product.id)
-
+    @line_item = @cart.destroy_product(@product.id)
     respond_to do |format|
       if @line_item.save
         format.html { redirect_to @line_item.cart }
@@ -55,5 +50,11 @@ class LineItemsController < InheritedResources::Base
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  private
+
+  def find_product
+    @product = Product.find(params[:product_id])
   end
 end

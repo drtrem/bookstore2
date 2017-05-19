@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  #after_create :send_admin_mail
+  after_create :send_admin_mail
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :omniauthable
@@ -21,11 +21,7 @@ class User < ApplicationRecord
   validates :shipping_phone, length: { maximum: 15 }, format: { with: /\A^\+[0-9]+\z/, message: "should starts with +" }, on: :update
 
   def role?(r)
-    if role
-      role.include? r.to_s
-    else
-      false
-    end
+    role ? (role.include? r.to_s) : false
   end
 
   def send_admin_mail

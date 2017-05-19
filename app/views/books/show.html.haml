@@ -1,7 +1,7 @@
 - present @product do |product|
   %a.general-back-link{href:"#{product_path}"}
     %i.fa.fa-long-arrow-left.mr-15
-    Back to results
+    = t('.back_to_results')
   .row
     .col-sm-6
       .product-gallery
@@ -28,31 +28,31 @@
             %a.input-link.plus.fa.fa-plus.line-height-40.help_fa{href: ""}
             %input.btn.btn-default.pull-right.general-positionid.hidden{id: '1', type: "submit", value: "Add to Cart"}
         .col-xs-7.col-md-5
-          %button.btn.btn-default.pull-right.general-position{type: "submit", onclick: "document.getElementById('1').click()"} Add to Cart
+          %button.btn.btn-default.pull-right.general-position{type: "submit", onclick: "document.getElementById('1').click()"}= t('.add_to_cart')
           .hidden
             = button_to "Add to Cart", {type: "submit", class: 'btn btn-default pull-right general-position hidden', onclick: "document.getElementById('1').click()"}
       .card
         .clearfix
           %p.general-item-info.pull-right= product.materials
-          %p.break-word Materials
+          %p.break-word= t('.materials')
         %p.in-grey-600.small.line-height-2
           = product.materials
       .card
-        %p Description
+        %p= t('.description')
         %p.in-grey-600.small.line-height-2
           = product.description
       .card
         .clearfix
           %p.general-item-info.pull-right= product.date
-          %p.break-word Year of publication
+          %p.break-word= t('.year_of_publication')
       .card
         .clearfix
           %p.general-item-info.pull-right= product.dimensions
-          %p.break-word Dimensions
+          %p.break-word= t('.dimensions')
       .card
         .clearfix
           %p.general-item-info.pull-right= product.materials
-          %p.break-word Materials
+          %p.break-word= t('.materials')
   .mb-80
     %ul.media-list
       = render 'books/show_review'

@@ -1,15 +1,15 @@
 FactoryGirl.define do
   factory :product do
-    sequence(:id)   { |i| i + 20 }
-    title           'title'
-    price           10
-    description     'description'
-    year            '24.02.2015'
-    dimensions      'dimensions'
-    materials       'materials'
+    id              { FFaker.numerify('#') }
+    title           { FFaker::Book.title }
+    price           { FFaker.numerify('##.##') }
+    description     { FFaker::DizzleIpsum.paragraphs }
+    year            { '24.02.2015' }
+    dimensions      { "#{FFaker.numerify('#.#')}\" #{FFaker.numerify('#.#')}\" #{FFaker.numerify('#.#')}\"" }
+    materials       { FFaker::Lorem.words.join ', ' }
     image_url       'image_url'
     association(:author)
     association(:category)
-    views 1
+    views           { FFaker.numerify('#') }
   end
 end

@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :line_item do
-    product_id 21
-    cart_id 222
-    quantity 1
-    order_id 1
+    product_id { FFaker.numerify('#') }
+    cart_id    { FFaker.numerify('#') }
+    quantity   { FFaker.numerify('#') }
+    order_id   { FFaker.numerify('#') }
   end
 end

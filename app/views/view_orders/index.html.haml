@@ -1,5 +1,5 @@
-%h1.mt-0.mb-25 My Orders
-%p.in-grey-600.small.mb-10.visible-xs Sort by
+%h1.mt-0.mb-25= t('.my_orders')
+%p.in-grey-600.small.mb-10.visible-xs= t('.sort_by')
 .dropdown.general-order-dropdown.mb-20
   %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
     = "#{params[:name_sort_order] || 'All'}"
@@ -21,22 +21,22 @@
       - @order.each do |order|
         %tr
           %td.col-half
-            %span.in-grey-600 Number
+            %span.in-grey-600= t('.number')
           %td.col-half
             %span.general-order-number= order.number
         %tr
           %td
-            %span.in-grey-600 Completed at
+            %span.in-grey-600= t('.completed_at')
           %td
             %span.in-grey-900.font-16.font-weight-light= order.date
         %tr
           %td
-            %span.in-grey-600 Status
+            %span.in-grey-600= t('.status')
           %td
             %span.font-16.in-grey-900.font-weight-light= order.state
         %tr
           %td
-            %span.in-grey-600 Total
+            %span.in-grey-600= t('.total')
           %td
             %strong.font-16= number_to_currency(order.subtotal)
   .general-cart-item
@@ -45,13 +45,13 @@
     %thead
       %tr
         %th
-          %span.in-grey-600 Number
+          %span.in-grey-600= t('.number')
         %th
-          %span.in-grey-600 Completed at
+          %span.in-grey-600= t('.completed_at')
         %th
-          %span.in-grey-600 Status
+          %span.in-grey-600= t('.status')
         %th
-          %span.in-grey-600 Total
+          %span.in-grey-600= t('.total')
     %tbody
       - @order.each do |order|
         %tr

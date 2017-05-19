@@ -1,6 +1,8 @@
 class CartsController < InheritedResources::Base
   include CartsHelper
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
+  before_filter :authenticate_user!
+  load_and_authorize_resource
 
   def show
     set_cupon

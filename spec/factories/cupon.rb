@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :cupon do
-    id 22
-    number 1111
-    price 10
+    id     { FFaker.numerify('#') }
+    number { FFaker.numerify('#') }
+    price  { FFaker.numerify('##.##') }
   end
 end
