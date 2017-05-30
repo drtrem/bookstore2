@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
       set_product_by_category
     else
       session[:category] = params[:id]
-      @product = Product.sort_by_category(params).per(8)
+      @products = Product.sort_by_category(params).per(8)
     end
     @categories = Category.all
     render 'show'
@@ -24,11 +24,11 @@ class ProductsController < ApplicationController
   private
 
   def set_category_all
-    @category = Category.ids
+    @category_ids = Category.ids
   end
 
   def set_product_by_category
-    @product = Product.sort_product(params, session).per(8)
+    @products = Product.sort_product(params, session).per(8)
   end
 
   def view_param_sort
