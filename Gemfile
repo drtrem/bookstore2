@@ -42,17 +42,18 @@ gem 'activemodel-serializers-xml', github: 'rails/activemodel-serializers-xml'
 gem 'draper', '3.0.0.pre1'
 gem 'virtus'
 gem "rectify"
+gem 'ffaker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+
 end
 
 group :development do

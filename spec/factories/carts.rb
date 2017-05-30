@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :cart do
-    id 222
-    cupon_id 3
+    id       { FFaker.numerify('#') }
+    cupon_id { FFaker.numerify('#') }
     factory :liner_item do
-      book
+      product
     end
   end
 end

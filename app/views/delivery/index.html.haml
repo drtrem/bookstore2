@@ -1,38 +1,38 @@
 - present @cart do |cart|
-  %h1.general-title-margin Checkout
+  %h1.general-title-margin= t('.checkout')
   %ul.steps.list-inline
     %li.step.active
       %span.step-number
         %i.fa.fa-check.step-icon
-      %span.step-text.hidden-xs Address
+      %span.step-text.hidden-xs= t('.address')
     %li.step-divider
     %li.step.active
       %span.step-number 2
-      %span.step-text.hidden-xs Delivery
+      %span.step-text.hidden-xs= t('.delivery')
     %li.step-divider
     %li.step
       %span.step-number 3
-      %span.step-text.hidden-xs Payment
+      %span.step-text.hidden-xs= t('.payment')
     %li.step-divider
     %li.step
       %span.step-number 4
-      %span.step-text.hidden-xs Confirm
+      %span.step-text.hidden-xs= t('.confirm')
     %li.step-divider
     %li.step
       %span.step-number 5
-      %span.step-text.hidden-xs Complete
-  %h3.general-subtitle Credit Card
+      %span.step-text.hidden-xs= t('.complete')
+  %h3.general-subtitle= t('.credit_card')
   .visible-xs
   .hidden-xs.mb-res-50
     %table.table.table-hover
       %thead
         %tr
           %th.col-method
-            %span.in-grey-600.ml-40 Method
+            %span.in-grey-600.ml-40= t('.method')
           %th
-            %span.in-grey-600 Days
+            %span.in-grey-600= t('.days')
           %th
-            %span.in-grey-600 Price
+            %span.in-grey-600= t('.price')
       %tbody
       = form_for current_user, :url => delivery_index_path, :method => :post do |f|
         %tr
@@ -58,17 +58,17 @@
           %table.general-summary-table
             %tr
               %td
-                %p.font-16 Subtotal:
+                %p.font-16= t('.subtotal')
               %td
                 %p.font-16= number_to_currency(@cart.total_price)
             %tr
               %td
-                %p.font-16 Coupon:
+                %p.font-16= t('.coupon') 
               %td
                 %p.font-16= number_to_currency(@cart.total_cupon)
             %tr
               %td
-                %strong.font-18 Order Total:
+                %strong.font-18= t('.order_total')
               %td
                 %strong.font-18= number_to_currency(cart.total_price)
         .text-center

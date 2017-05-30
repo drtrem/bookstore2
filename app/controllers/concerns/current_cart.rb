@@ -11,8 +11,6 @@ module CurrentCart
   end
 
   def clear_line_items
-    @cart.line_items.each do |item|
-      item.cart_id = nil
-    end
+    @cart.line_items.update_all(cart_id: nil)
   end
 end

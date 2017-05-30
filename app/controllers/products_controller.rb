@@ -1,23 +1,21 @@
 class ProductsController < ApplicationController
   def show
     view_param_sort
-    @catego = []
-    Category.all.each { |c| @catego << c.id }
-    session[:category] ||= @catego
-    @product = Product.order(sort_column + ' ' + sort_direction).where(category_id: session[:category]).page(params[:page]).per(8)
+    set_category_all
+    session[:category] ||= @category
+    set_product_by_category
     @categories = Category.all
   end
 
   def category
     view_param_sort
     if params[:id] == 'all'
-      @catego = []
-      Category.all.each { |c| @catego << c.id }
-      session[:category] = @catego
-      @product = Product.order(sort_column + ' ' + sort_direction).where(category_id: session[:category]).page(params[:page]).per(8)
+      set_category_all
+      session[:category] = @category
+      set_product_by_category
     else
       session[:category] = params[:id]
-      @product = Product.where(category_id: params[:id]).page(params[:page]).per(8)
+      @product = Product.sort_by_category(params).per(8)
     end
     @categories = Category.all
     render 'show'
@@ -25,12 +23,12 @@ class ProductsController < ApplicationController
 
   private
 
-  def sort_column
-    Product.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
+  def set_category_all
+    @category = Category.ids
   end
 
-  def sort_direction
-    %w(asc desc).include?(params[:direction]) ?  params[:direction] : 'desc'
+  def set_product_by_category
+    @product = Product.sort_product(params, session).per(8)
   end
 
   def view_param_sort

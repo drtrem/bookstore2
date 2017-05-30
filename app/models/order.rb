@@ -11,6 +11,9 @@ class Order < ApplicationRecord
   validates :mm_yy, format: { with: /\A(0{1}([0-9]){1}|1{1}([0-2]){1})\/\d{2}\z/, message: 'the expiration date must be MM/YY' }
   validates :cvv, length: { maximum: 4 }
 
+  scope :sort_order_all, ->(current_user, params) { order(id: :desc).where(user_id: current_user.id).where(state: params[:sort_order]) }
+  scope :sort_order, ->(current_user) { order(id: :desc).all.where(user_id: current_user.id) }
+
   aasm column: 'state' do
     state :in_queued, initial: true
     state :in_delivering
@@ -31,9 +34,7 @@ class Order < ApplicationRecord
   end
 
   def add_line_items_from_cart(cart)
-    cart.line_items.each do |item|
-      line_items << item
-    end
+    line_items = cart.line_items.map(&:item)
   end
 
   def total_price
@@ -41,12 +42,12 @@ class Order < ApplicationRecord
   end
 
   def total_cupon
-    @cupon = Cupon.find(cupon_id)
-    @cupon.price
+    cupon = Cupon.find(cupon_id)
+    cupon.price
   end
 
   def total_delivery
-    @delivery = Delivery.find(delivery_id)
-    @delivery.price
+    delivery = Delivery.find(delivery_id)
+    delivery.price
   end
 end
